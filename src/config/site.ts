@@ -4,10 +4,10 @@
  */
 export const site = {
   /**
-   * Change this to the production domain before deploying. It is used for
-   * canonical URLs, Open Graph tags, the sitemap, and structured data.
+   * Production origin. Used for canonical URLs, Open Graph tags, the sitemap,
+   * and structured data.
    */
-  url: "https://stefaron.dev",
+  url: "https://portfolio.evanproject.com",
   name: "Stefaron Budhi Santosa",
   firstName: "Evan",
   role: "Software engineer",
