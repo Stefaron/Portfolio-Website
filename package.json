@@ -17,7 +17,8 @@
     "cv": "node scripts/generate-cv.mjs",
     "screenshot": "node scripts/screenshot.mjs",
     "smoke": "node scripts/smoke.mjs",
-    "astro": "astro"
+    "astro": "astro",
+    "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.4.8",
@@ -36,6 +37,7 @@
     "prettier-plugin-astro": "^1.1.2",
     "puppeteer-core": "^25.17.0",
     "sharp": "^0.35.5",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "wrangler": "^4.160.0"
   }
 }
