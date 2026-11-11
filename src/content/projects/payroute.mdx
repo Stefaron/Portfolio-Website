@@ -1,0 +1,49 @@
+---
+title: Payroute
+summary: x402 payment rail on Mantle
+year: 2026
+role: Smart contracts & SDK
+stack:
+  - Solidity
+  - TypeScript
+  - Foundry
+  - Mantle
+cover: ../../assets/images/projects/payroute.jpg
+coverAlt: Payroute x402 payment rail on Mantle
+featured: true
+order: 2
+metrics:
+  - value: v1.0.1
+    label: TypeScript SDK shipped
+  - value: Sole author
+    label: escrow contracts
+links:
+  - label: GitHub
+    href: https://github.com/Stefaron/seamless-transaction-x402
+---
+
+Payroute is an x402 payment rail on Mantle. I was the sole author of the escrow
+contracts and shipped a TypeScript SDK (v1.0.1) so other teams could integrate
+without writing raw contract calls.
+
+## The problem
+
+Micropayments need a way to hold funds until a service is delivered, then release
+them without a trusted intermediary. The rail also has to be easy for client
+applications to adopt — a correct contract is not enough if integration takes a
+week.
+
+## What I built
+
+- Escrow contracts with explicit states for funded, delivered, released, and
+  refunded payments.
+- Foundry tests covering the happy path plus replay, double-release, and
+  unauthorised-release cases.
+- A TypeScript SDK that wraps contract reads, writes, and event decoding behind a
+  small typed API, published as v1.0.1.
+
+## What I learned
+
+The SDK was the product. Once integration was reduced to a few typed calls,
+teams could evaluate the rail in an afternoon instead of reading the contracts
+line by line.

@@ -1,0 +1,9 @@
+title: Web3 & smart contracts
+description: Solidity contracts and TypeScript SDKs for payment rails and on-chain agents. Foundry and Hardhat test suites, escrow logic, wallet integrations, and agent workflows.
+tags:
+  - Solidity
+  - Foundry
+  - Hardhat
+  - TypeScript
+  - Move
+order: 2

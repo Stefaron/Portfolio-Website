@@ -1,0 +1,11 @@
+group: ANDROID
+order: 1
+items:
+  - Kotlin
+  - Jetpack Compose
+  - Hilt
+  - Room
+  - Coroutines / Flow
+  - MVVM
+  - Clean Architecture
+  - Retrofit

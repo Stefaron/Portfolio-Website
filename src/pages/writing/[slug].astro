@@ -1,0 +1,119 @@
+---
+import { Image } from "astro:assets";
+import { render } from "astro:content";
+import ArticleLayout from "../../layouts/ArticleLayout.astro";
+import Button from "../../components/ui/Button.astro";
+import Icon from "../../components/ui/Icon.astro";
+import { getWriting } from "../../lib/content";
+import { articleSchema } from "../../lib/seo";
+
+export async function getStaticPaths() {
+  const writing = await getWriting();
+  return writing.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { data } = entry;
+
+const date = data.publishedAt.toLocaleDateString("en-US", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
+
+const schema = articleSchema({
+  title: data.title,
+  description: data.description,
+  url: `/writing/${entry.id}`,
+  datePublished: data.publishedAt,
+  author: data.authors,
+});
+---
+
+<ArticleLayout
+  title={data.title}
+  description={data.description}
+  breadcrumbs={[
+    { label: "Home", href: "/" },
+    { label: "Writing", href: "/writing" },
+    { label: data.kind === "paper" ? "Paper" : "Note" },
+  ]}
+  schema={schema}
+>
+  <div slot="meta" class="mt-8 flex flex-col gap-5">
+    <div class="flex flex-wrap items-center gap-2">
+      <span class="rounded-pill bg-accent/10 px-3.5 py-1.5 text-tiny font-semibold text-accent">
+        {data.kind === "paper" ? "Peer reviewed" : "Note"}
+      </span>
+      <span class="rounded-pill bg-paper px-3.5 py-1.5 text-tiny font-semibold text-ink-muted shadow-soft">
+        {date}
+      </span>
+      {data.tags.map((tag) => (
+        <span class="rounded-pill bg-paper px-3.5 py-1.5 text-tiny font-semibold text-ink-muted shadow-soft">
+          {tag}
+        </span>
+      ))}
+    </div>
+
+    {data.journal && (
+      <p class="inline-flex items-center gap-2 text-tiny font-semibold text-ink-muted">
+        <Icon name="book-open" size={15} />
+        {data.journal}
+      </p>
+    )}
+
+    {data.authors && <p class="text-meta text-ink-subtle">{data.authors}</p>}
+
+    {data.metrics.length > 0 && (
+      <dl class="grid grid-cols-2 gap-4 sm:grid-cols-4">
+        {data.metrics.map((metric) => (
+          <div class="flex flex-col gap-1">
+            <dt class="text-[22px] font-bold leading-none tracking-[-0.4px] text-ink">
+              {metric.value}
+            </dt>
+            <dd class="text-tiny text-ink-subtle">{metric.label}</dd>
+          </div>
+        ))}
+      </dl>
+    )}
+  </div>
+
+  {data.cover && (
+    <div slot="hero" class="mt-10 overflow-hidden rounded-card">
+      <Image
+        src={data.cover}
+        alt={data.coverAlt}
+        widths={[800, 1200, 1600]}
+        sizes="(min-width: 1440px) 1280px, 100vw"
+        format="webp"
+        quality={85}
+        class="h-auto w-full object-cover"
+      />
+    </div>
+  )}
+
+  <Content />
+
+  <div
+    slot="after"
+    class="mt-14 flex flex-wrap items-center gap-3 border-t border-line pt-8"
+  >
+    <Button href="/writing" variant="secondary" icon="arrow-left" iconPosition="start">
+      All writing
+    </Button>
+    {data.externalUrl && (
+      <Button
+        href={data.externalUrl}
+        target="_blank"
+        rel="noreferrer"
+        icon="external-link"
+      >
+        View at publisher
+      </Button>
+    )}
+  </div>
+</ArticleLayout>

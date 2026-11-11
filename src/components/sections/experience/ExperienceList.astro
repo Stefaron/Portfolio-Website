@@ -1,0 +1,44 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Container from "../../layout/Container.astro";
+import SectionHeader from "../../ui/SectionHeader.astro";
+import ExperienceCard from "./ExperienceCard.astro";
+import { site } from "../../../config/site";
+
+interface Props {
+  experience: Array<CollectionEntry<"experience">>;
+}
+
+const { experience } = Astro.props;
+const featured = experience.filter((role) => role.data.featured);
+const earlier = experience.filter((role) => !role.data.featured);
+---
+
+<section
+  id="experience"
+  aria-labelledby="experience-title"
+  class="pt-16 md:pt-20 lg:pt-[120px]"
+>
+  <Container class="flex flex-col gap-7">
+    <SectionHeader
+      id="experience-title"
+      title="Experience"
+      link={{ label: site.cv.label, href: site.cv.href }}
+      note="Mar 2025 — Present"
+    />
+
+    <div class="flex flex-col gap-5">
+      {featured.map((role) => (
+        <ExperienceCard role={role} />
+      ))}
+
+      {earlier.length > 0 && (
+        <div class="grid gap-4 md:grid-cols-2">
+          {earlier.map((role) => (
+            <ExperienceCard role={role} compact />
+          ))}
+        </div>
+      )}
+    </div>
+  </Container>
+</section>

@@ -1,0 +1,63 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Container from "../../layout/Container.astro";
+import Button from "../../ui/Button.astro";
+import Icon from "../../ui/Icon.astro";
+import Tag from "../../ui/Tag.astro";
+
+interface Props {
+  services: Array<CollectionEntry<"services">>;
+}
+
+const { services } = Astro.props;
+---
+
+<section aria-labelledby="services-title" class="pt-16 md:pt-20 lg:pt-[120px]">
+  <Container class="flex flex-col gap-12 lg:flex-row lg:gap-[72px]">
+    <div class="flex flex-col gap-5 lg:w-[400px] lg:shrink-0">
+      <p class="text-tiny font-bold uppercase tracking-[1.6px] text-accent">What I do</p>
+      <h2 id="services-title" class="text-headline font-bold text-ink">
+        Three things I do well.
+      </h2>
+      <p class="text-small leading-6 text-ink-muted">
+        Production Android first, with smart contracts and applied machine learning close
+        behind. I like shipping things that hold up under real store traffic.
+      </p>
+      <div class="pt-2">
+        <Button href="/contact" size="sm" icon="arrow-up-right">
+          Work with me
+        </Button>
+      </div>
+    </div>
+
+    <div class="flex flex-1 flex-col gap-3.5">
+      {services.map((service, index) => (
+        <details
+          class="group rounded-faq bg-paper p-[26px] shadow-soft"
+          open={index === 0}
+        >
+          <summary class="flex cursor-pointer list-none items-center gap-[18px] [&::-webkit-details-marker]:hidden">
+            <span class="grid h-[38px] w-[38px] shrink-0 place-items-center rounded-pill bg-canvas text-tiny font-bold text-ink-muted">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <h3 class="flex-1 text-title font-bold text-ink">{service.data.title}</h3>
+            <span class="grid h-[38px] w-[38px] shrink-0 place-items-center rounded-pill bg-ink text-inverse">
+              <Icon name="plus" size={17} class="toggle-icon" />
+            </span>
+          </summary>
+
+          <div class="mt-[18px] flex flex-col gap-5 pl-0 sm:pl-14">
+            <p class="text-small leading-6 text-ink-muted">{service.data.description}</p>
+            <ul class="flex flex-wrap gap-1.5">
+              {service.data.tags.map((tag) => (
+                <li>
+                  <Tag>{tag}</Tag>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </details>
+      ))}
+    </div>
+  </Container>
+</section>

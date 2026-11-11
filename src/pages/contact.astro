@@ -1,0 +1,33 @@
+---
+import PageLayout from "../layouts/PageLayout.astro";
+import PageHero from "../components/layout/PageHero.astro";
+import ContactMethods from "../components/sections/contact/ContactMethods.astro";
+import Faq from "../components/sections/faq/Faq.astro";
+import { getFaq } from "../lib/content";
+import { personSchema } from "../lib/seo";
+import { site } from "../config/site";
+
+const faq = await getFaq(3);
+---
+
+<PageLayout
+  title={`Contact — ${site.firstName}`}
+  description="Get in touch with Evan about Android roles, smart-contract work, or collaborations."
+  schema={personSchema()}
+>
+  <PageHero
+    eyebrow="Contact"
+    title="Let's talk."
+    description="Open to Android roles, smart-contract work, and collaborations. Email is the fastest route; I usually reply within a day."
+  />
+
+  <ContactMethods />
+
+  <Faq
+    id="contact-faq"
+    title="Before you write"
+    description="A few answers that might save us both a round trip."
+    items={faq}
+    openFirst={false}
+  />
+</PageLayout>

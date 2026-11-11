@@ -1,0 +1,40 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import PageHero from "../../components/layout/PageHero.astro";
+import Container from "../../components/layout/Container.astro";
+import WritingList from "../../components/sections/writing/WritingList.astro";
+import { getWriting } from "../../lib/content";
+import { site } from "../../config/site";
+
+const entries = await getWriting();
+const paperCount = entries.filter((entry) => entry.data.kind === "paper").length;
+---
+
+<PageLayout
+  title={`Writing — ${site.firstName}`}
+  description="Research notes and published work by Evan, including a ResNet-50 study on Keraton batik motifs."
+>
+  <PageHero
+    eyebrow="Writing"
+    title="Notes and research."
+    description="Published work and longer notes on Android, on-chain systems, and applied machine learning. Papers open with the abstract; everything else is a short read."
+  />
+
+  <Container class="flex flex-col gap-6 pb-6">
+    <div class="flex flex-wrap items-center justify-between gap-3 border-t border-line pt-5">
+      <p class="text-tiny font-semibold text-ink-subtle">
+        {entries.length} {entries.length === 1 ? "entry" : "entries"} · {paperCount} peer
+        reviewed
+      </p>
+      <a
+        href="https://orcid.org/0009-0006-3100-3812"
+        target="_blank"
+        rel="noreferrer"
+        class="text-tiny font-semibold text-ink underline-offset-4 transition hover:text-accent hover:underline"
+      >
+        ORCID record
+      </a>
+    </div>
+    <WritingList entries={entries} />
+  </Container>
+</PageLayout>

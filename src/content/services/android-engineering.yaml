@@ -1,0 +1,10 @@
+title: Android engineering
+description: Kotlin and Jetpack Compose in production, a POS for Indomaret store tablets, plus three field-operations apps used across the chain. Clean Architecture, MVVM, Hilt, Room and Flows.
+tags:
+  - Kotlin
+  - Jetpack Compose
+  - Hilt
+  - Room
+  - Coroutines / Flow
+  - Retrofit
+order: 1

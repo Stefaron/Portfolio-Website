@@ -1,0 +1,45 @@
+---
+import Button from "../ui/Button.astro";
+import Icon from "../ui/Icon.astro";
+import { site } from "../../config/site";
+---
+
+<section
+  aria-labelledby="cta-title"
+  class="rounded-panel bg-ink px-5 py-14 text-center md:px-20 md:py-20 md:pb-14"
+>
+  <p class="text-tiny font-bold uppercase tracking-[2px] text-ink-soft">
+    Open to Android roles
+  </p>
+  <h2
+    id="cta-title"
+    class="mx-auto mt-8 max-w-[900px] text-balance text-[clamp(2.25rem,4.58vw,4.125rem)] font-bold leading-[1.06] tracking-[-0.036em] text-inverse"
+  >
+    Let's build something that runs in every environment.
+  </h2>
+
+  <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+    <Button href={`mailto:${site.email}`} variant="light" icon="arrow-up-right">
+      {site.email}
+    </Button>
+    <Button href={`tel:${site.phoneHref}`} variant="ghost">
+      {site.phone}
+    </Button>
+  </div>
+
+  <ul class="mt-4 flex flex-wrap items-center justify-center gap-3">
+    {site.socials.map((social) => (
+      <li>
+        <a
+          href={social.href}
+          target={social.href.startsWith("http") ? "_blank" : undefined}
+          rel={social.href.startsWith("http") ? "noreferrer" : undefined}
+          class="inline-flex items-center gap-2 rounded-pill bg-white/10 px-[18px] py-2.5 text-tiny font-semibold text-inverse transition hover:bg-white/15"
+        >
+          <Icon name={social.icon} size={16} />
+          {social.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>

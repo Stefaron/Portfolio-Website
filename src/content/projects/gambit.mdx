@@ -1,0 +1,51 @@
+---
+title: Gambit
+summary: Celo MiniPay chess — backend & on-chain payouts
+year: 2026
+role: Backend & smart contracts
+stack:
+  - TypeScript
+  - Solidity
+  - Celo
+  - MiniPay
+cover: ../../assets/images/projects/gambit.jpg
+coverAlt: Gambit chess interface on Celo MiniPay
+featured: true
+order: 1
+metrics:
+  - value: "25 / 61"
+    label: commits in a three-person team
+  - value: "3"
+    label: person team
+links:
+  - label: GitHub profile
+    href: https://github.com/Stefaron
+---
+
+Gambit is a chess product built for Celo MiniPay, where matches are settled with
+on-chain payouts. I worked on the backend and the payout contracts in a
+three-person team, contributing 25 of the project's 61 commits.
+
+## The problem
+
+MiniPay users expect a mobile-first experience with near-instant settlement. A
+chess match has a long-lived lifecycle — pairing, moves, resignations, timeouts
+— but the payout should only happen once the result is final. The backend had to
+be the source of truth for game state while keeping on-chain writes small and
+predictable.
+
+## What I built
+
+- Match lifecycle services that own game creation, move validation, and result
+  finalisation.
+- Payout flows that translate a finished game into a single on-chain
+  transaction, with idempotency guards so a retry cannot double-pay a player.
+- Contract-side helpers for recording results and releasing rewards to the
+  winner.
+
+## What I learned
+
+Keeping the chain as a settlement layer rather than a game server made the
+system easier to reason about. The hard part was not the Solidity; it was
+designing the backend state machine so that every path — resignation, timeout,
+abandonment — ended in exactly one payout.

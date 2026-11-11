@@ -1,0 +1,3 @@
+question: What Android work are you doing right now?
+answer: Checkout, payment and authorization features for an Indomaret POS built in Kotlin and Compose, planned for phased rollout across 24,351 stores. Alongside it I ship field-operations apps — QR documents, WiFi-paired queue displays streaming over WebSocket, and alarm monitoring.
+order: 1

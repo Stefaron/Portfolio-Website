@@ -1,0 +1,42 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import PageHero from "../../components/layout/PageHero.astro";
+import Container from "../../components/layout/Container.astro";
+import ProjectGrid from "../../components/sections/projects/ProjectGrid.astro";
+import { getProjects } from "../../lib/content";
+import { site } from "../../config/site";
+
+const projects = await getProjects();
+const years = projects.map((project) => project.data.year);
+const minYear = Math.min(...years);
+const maxYear = Math.max(...years);
+const yearRange = minYear === maxYear ? `${minYear}` : `${minYear}–${maxYear}`;
+---
+
+<PageLayout
+  title={`Work — ${site.firstName}`}
+  description="Android, smart contracts, and applied machine learning projects by Evan."
+>
+  <PageHero
+    eyebrow="Work"
+    title="Selected projects."
+    description="Production Android, on-chain payment rails, and applied machine learning. Each card opens a short case study with the problem, the build, and what I learned."
+  />
+
+  <Container class="flex flex-col gap-6 pb-6">
+    <div class="flex flex-wrap items-center justify-between gap-3 border-t border-line pt-5">
+      <p class="text-tiny font-semibold text-ink-subtle">
+        {projects.length} projects · {yearRange}
+      </p>
+      <a
+        href="https://github.com/Stefaron"
+        target="_blank"
+        rel="noreferrer"
+        class="text-tiny font-semibold text-ink underline-offset-4 transition hover:text-accent hover:underline"
+      >
+        More on GitHub
+      </a>
+    </div>
+    <ProjectGrid projects={projects} />
+  </Container>
+</PageLayout>

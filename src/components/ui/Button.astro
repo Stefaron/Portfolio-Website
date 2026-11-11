@@ -1,0 +1,66 @@
+---
+import Icon from "./Icon.astro";
+import { cn } from "../../lib/cn";
+
+interface Props {
+  href?: string;
+  variant?: "primary" | "secondary" | "light" | "ghost" | "nav";
+  size?: "md" | "sm";
+  icon?: string;
+  iconPosition?: "start" | "end";
+  class?: string;
+  target?: string;
+  rel?: string;
+  type?: "button" | "submit";
+  ariaLabel?: string;
+}
+
+const {
+  href,
+  variant = "primary",
+  size = "md",
+  icon,
+  iconPosition = "end",
+  class: className,
+  target,
+  rel,
+  type = "button",
+  ariaLabel,
+} = Astro.props;
+
+const base =
+  "inline-flex items-center justify-center gap-2.5 rounded-pill font-semibold transition duration-200";
+
+const sizes = {
+  md: "px-8 py-[17px] text-body",
+  sm: "px-[26px] py-[14px] text-small",
+};
+
+const variants = {
+  primary: "bg-ink text-inverse shadow-action hover:bg-ink-muted",
+  secondary: "border border-ink-subtle text-ink hover:border-ink hover:bg-paper",
+  light: "bg-surface text-ink hover:bg-paper",
+  ghost: "border border-white/20 text-inverse hover:border-white/40 hover:bg-white/5",
+  nav: "bg-ink text-inverse shadow-cta hover:bg-ink-muted",
+};
+
+const classes = cn(base, sizes[size], variants[variant], className);
+---
+
+{href ? (
+  <a href={href} class={classes} target={target} rel={rel} aria-label={ariaLabel}>
+    {icon && iconPosition === "start" && <Icon name={icon} size={16} />}
+    <span>
+      <slot />
+    </span>
+    {icon && iconPosition === "end" && <Icon name={icon} size={16} />}
+  </a>
+) : (
+  <button type={type} class={classes} aria-label={ariaLabel}>
+    {icon && iconPosition === "start" && <Icon name={icon} size={16} />}
+    <span>
+      <slot />
+    </span>
+    {icon && iconPosition === "end" && <Icon name={icon} size={16} />}
+  </button>
+)}

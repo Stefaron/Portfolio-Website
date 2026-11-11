@@ -1,0 +1,40 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Container from "../../layout/Container.astro";
+import FaqItem from "./FaqItem.astro";
+
+interface Props {
+  items: Array<CollectionEntry<"faq">>;
+  title?: string;
+  description?: string;
+  id?: string;
+  openFirst?: boolean;
+}
+
+const {
+  items,
+  title = "Got questions?",
+  description = "The short version of what I do, how I work, and how to reach me.",
+  id = "faq",
+  openFirst = true,
+} = Astro.props;
+---
+
+<section id={id} aria-labelledby={`${id}-title`} class="pt-16 md:pt-20 lg:pt-[120px]">
+  <Container>
+    <div class="mx-auto flex max-w-[1080px] flex-col items-center gap-9">
+      <div class="flex flex-col items-center gap-4 text-center">
+        <h2 id={`${id}-title`} class="text-headline font-bold text-ink">
+          {title}
+        </h2>
+        <p class="max-w-[560px] text-body text-ink-muted">{description}</p>
+      </div>
+
+      <div class="flex w-full flex-col gap-3.5">
+        {items.map((item, index) => (
+          <FaqItem item={item} open={openFirst && index === 0} />
+        ))}
+      </div>
+    </div>
+  </Container>
+</section>

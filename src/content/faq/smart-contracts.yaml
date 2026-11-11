@@ -1,0 +1,3 @@
+question: Do you take on smart-contract work?
+answer: Yes. I write Solidity with Foundry and Hardhat, and I have shipped escrow contracts plus a TypeScript SDK for an x402 payment rail on Mantle. I am comfortable with on-chain payouts, registries, and agent workflows.
+order: 2

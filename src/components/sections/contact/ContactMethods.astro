@@ -1,0 +1,79 @@
+---
+import Container from "../../layout/Container.astro";
+import Icon from "../../ui/Icon.astro";
+import { site } from "../../../config/site";
+
+const methods = [
+  {
+    label: "Email",
+    value: site.email,
+    href: `mailto:${site.email}`,
+    icon: "mail",
+    hint: "Best for roles, contracts, and collaborations.",
+  },
+  {
+    label: "Phone",
+    value: site.phone,
+    href: `tel:${site.phoneHref}`,
+    icon: "phone",
+    hint: "Weekdays, WIB (UTC+7).",
+  },
+  {
+    label: "Location",
+    value: site.location,
+    href: "https://maps.google.com/?q=Yogyakarta,Indonesia",
+    icon: "map-pin",
+    hint: "Open to remote and on-site work.",
+  },
+];
+
+const socials = site.socials;
+---
+
+<section aria-label="Contact details" class="pt-6 md:pt-8">
+  <Container class="flex flex-col gap-5">
+    <div class="grid gap-4 md:grid-cols-3">
+      {methods.map((method) => (
+        <a
+          href={method.href}
+          target={method.href.startsWith("http") ? "_blank" : undefined}
+          rel={method.href.startsWith("http") ? "noreferrer" : undefined}
+          class="group flex flex-col gap-4 rounded-card bg-paper p-6 shadow-card transition hover:-translate-y-1 hover:shadow-float md:p-8"
+        >
+          <span class="grid h-11 w-11 place-items-center rounded-pill bg-ink text-inverse transition group-hover:bg-accent">
+            <Icon name={method.icon} size={18} />
+          </span>
+          <span class="text-tiny font-bold uppercase tracking-[1.4px] text-ink-subtle">
+            {method.label}
+          </span>
+          <span class="text-body font-semibold text-ink">{method.value}</span>
+          <span class="text-meta text-ink-muted">{method.hint}</span>
+        </a>
+      ))}
+    </div>
+
+    <div class="flex flex-col gap-4 rounded-card bg-surface p-6 md:flex-row md:items-center md:justify-between md:p-8">
+      <div>
+        <p class="text-body font-bold text-ink">Elsewhere</p>
+        <p class="mt-1 text-meta text-ink-muted">
+          Code, work history, and the paper trail.
+        </p>
+      </div>
+      <ul class="flex flex-wrap gap-2">
+        {socials.map((social) => (
+          <li>
+            <a
+              href={social.href}
+              target={social.href.startsWith("http") ? "_blank" : undefined}
+              rel={social.href.startsWith("http") ? "noreferrer" : undefined}
+              class="inline-flex items-center gap-2 rounded-pill bg-paper px-4 py-2.5 text-tiny font-semibold text-ink shadow-soft transition hover:text-accent"
+            >
+              <Icon name={social.icon} size={15} />
+              {social.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Container>
+</section>

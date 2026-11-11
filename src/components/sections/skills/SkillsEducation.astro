@@ -1,0 +1,96 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Container from "../../layout/Container.astro";
+import Chip from "../../ui/Chip.astro";
+import Icon from "../../ui/Icon.astro";
+
+interface Props {
+  groups: Array<CollectionEntry<"skills">>;
+  education: Array<CollectionEntry<"education">>;
+  languages: Array<CollectionEntry<"languages">>;
+}
+
+const { groups, education, languages } = Astro.props;
+---
+
+<section aria-labelledby="skills-title" class="pt-16 md:pt-20 lg:pt-[120px]">
+  <h2 id="skills-title" class="sr-only">
+    Skills and education
+  </h2>
+
+  <Container class="grid gap-5 lg:grid-cols-2">
+    <div class="flex h-full flex-col gap-6 rounded-card bg-gradient-to-b from-ink to-ink-muted p-6 md:p-9">
+      <div>
+        <p class="text-[26px] font-bold tracking-[-0.027em] text-inverse">Toolbox</p>
+        <p class="mt-1 text-meta text-ink-soft">What I reach for, day to day.</p>
+      </div>
+
+      <div class="flex flex-col gap-5">
+        {groups.map((group) => (
+          <div class="flex flex-col gap-2">
+            <p class="text-micro font-bold uppercase tracking-[1.2px] text-ink-soft">
+              {group.data.group}
+            </p>
+            <ul class="flex flex-wrap gap-1.5">
+              {group.data.items.map((item) => (
+                <li>
+                  <Chip>{item}</Chip>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-5">
+      {education.map((item) => (
+        <article class="flex flex-col gap-[18px] rounded-card bg-paper p-6 shadow-card md:p-9">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <h3 class="text-[26px] font-bold tracking-[-0.027em] text-ink">Education</h3>
+            {item.data.gpa && (
+              <span class="rounded-pill bg-canvas px-3.5 py-1.5 text-tiny font-semibold text-ink-muted">
+                {item.data.gpa}
+              </span>
+            )}
+          </div>
+
+          <p class="text-body font-bold tracking-[-0.01em] text-ink">
+            {item.data.degree}
+          </p>
+          <p class="text-meta text-ink-muted">
+            {item.data.school}
+            {item.data.location && ` · ${item.data.location}`}
+          </p>
+          <p class="text-tiny font-semibold text-ink-subtle">{item.data.meta}</p>
+
+          <div class="h-px w-full bg-line" />
+
+          <ul class="flex flex-col gap-2.5">
+            {item.data.certifications.map((cert) => (
+              <li class="flex items-center gap-2.5">
+                <Icon name="badge-check" size={16} class="shrink-0 text-ink-muted" />
+                <span class="flex-1 text-meta font-semibold text-ink">{cert.name}</span>
+                <span class="text-micro font-semibold text-ink-subtle">{cert.year}</span>
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))}
+
+      <article class="flex flex-col gap-4 rounded-card bg-paper p-6 shadow-card md:p-9">
+        <h3 class="text-[26px] font-bold tracking-[-0.027em] text-ink">Languages</h3>
+        <ul class="flex flex-col gap-3">
+          {languages.map((language) => (
+            <li class="flex items-center justify-between gap-4">
+              <span class="text-body font-semibold text-ink">{language.data.name}</span>
+              <span class="rounded-pill bg-canvas px-3 py-1.5 text-tiny font-semibold text-ink-muted">
+                {language.data.level}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </article>
+    </div>
+  </Container>
+</section>

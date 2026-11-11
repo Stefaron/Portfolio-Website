@@ -1,0 +1,56 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Icon from "../../ui/Icon.astro";
+
+interface Props {
+  entry: CollectionEntry<"writing">;
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+const href = `/writing/${entry.id}`;
+const date = data.publishedAt.toLocaleDateString("en-US", {
+  day: "numeric",
+  month: "short",
+  year: "numeric",
+});
+---
+
+<article class="flex flex-col gap-4 rounded-faq bg-paper p-6 shadow-soft transition hover:-translate-y-0.5 hover:shadow-card md:p-8">
+  <div class="flex flex-wrap items-center gap-3 text-tiny font-semibold text-ink-subtle">
+    <span class="rounded-pill bg-canvas px-3 py-1 uppercase tracking-[0.08em] text-ink-muted">
+      {data.kind}
+    </span>
+    <time datetime={data.publishedAt.toISOString().slice(0, 10)}>{date}</time>
+  </div>
+
+  <h3 class="text-[22px] font-bold leading-[1.25] tracking-[-0.025em] text-ink">
+    <a
+      href={href}
+      class="underline-offset-4 transition hover:text-accent hover:underline"
+    >
+      {data.title}
+    </a>
+  </h3>
+
+  <p class="text-small leading-6 text-ink-muted">{data.description}</p>
+
+  <div class="mt-auto flex flex-wrap items-center justify-between gap-3 pt-2">
+    <a
+      href={href}
+      class="inline-flex items-center gap-1.5 text-tiny font-bold text-accent underline-offset-4 hover:underline"
+    >
+      Read
+      <Icon name="arrow-right" size={13} />
+    </a>
+    {data.tags.length > 0 && (
+      <ul class="flex flex-wrap gap-1.5">
+        {data.tags.slice(0, 3).map((tag) => (
+          <li class="rounded-pill bg-canvas px-2.5 py-1 text-micro font-semibold text-ink-muted">
+            {tag}
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</article>

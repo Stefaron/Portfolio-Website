@@ -1,0 +1,52 @@
+---
+title: Classification of Batik Keraton motifs using ResNet-50 fine-tuning architecture
+description: Fine-tuning a ResNet-50 to classify four Keraton batik motif classes, reaching 97.8% test accuracy. Published in AITI volume 23.
+publishedAt: 2026-02-01
+kind: paper
+journal: AITI · Vol. 23, No. 1 · pp. 46–60 · 2026
+authors: Santosa, S. B., Chrismanto, A. R., & Susanto, B.
+doi: 10.24246/aiti.v23i1.46-60
+externalUrl: https://doi.org/10.24246/aiti.v23i1.46-60
+tags:
+  - ResNet-50
+  - Computer vision
+  - Batik
+  - Transfer learning
+metrics:
+  - value: 97.8%
+    label: test accuracy
+  - value: 96.8%
+    label: validation accuracy
+  - value: "4"
+    label: motif classes
+  - value: ResNet-50
+    label: fine-tuned
+featured: true
+---
+
+## Abstract
+
+Batik Keraton motifs carry distinct visual patterns that are difficult to
+separate with hand-crafted features, especially when the dataset is small and
+class balance is uneven. This study evaluates transfer learning as a practical
+approach for classifying four Keraton motif classes.
+
+## Method
+
+A ResNet-50 backbone pre-trained on ImageNet was fine-tuned on a curated dataset
+of Keraton batik images. The training pipeline used augmentation and gradual
+unfreezing to adapt the deeper layers without overfitting the limited samples.
+Performance was measured on a held-out test split alongside validation accuracy.
+
+## Results
+
+The fine-tuned model reached **97.8% test accuracy** and **96.8% validation
+accuracy** across the four motif classes. The gap between the two suggests the
+model generalised rather than memorising the training set, though the small
+number of classes remains a limitation.
+
+## Takeaways
+
+Fine-tuning a strong vision backbone is a realistic baseline for cultural
+heritage image classification. The paper documents the preprocessing and
+training choices so the result can be reproduced on a larger motif set.

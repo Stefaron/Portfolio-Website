@@ -1,0 +1,23 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import SiteHeader from "../components/layout/SiteHeader.astro";
+import SiteFooter from "../components/layout/SiteFooter.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  noindex?: boolean;
+  schema?: Record<string, unknown> | Array<Record<string, unknown>>;
+}
+
+const props = Astro.props;
+---
+
+<BaseLayout {...props}>
+  <SiteHeader />
+  <main id="main">
+    <slot />
+  </main>
+  <SiteFooter />
+</BaseLayout>

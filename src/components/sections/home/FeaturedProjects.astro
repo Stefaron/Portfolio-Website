@@ -1,0 +1,25 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Container from "../../layout/Container.astro";
+import SectionHeader from "../../ui/SectionHeader.astro";
+import ProjectGrid from "../projects/ProjectGrid.astro";
+
+interface Props {
+  projects: Array<CollectionEntry<"projects">>;
+}
+
+const { projects } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<section id="work" aria-labelledby="work-title" class="pt-16 md:pt-20 lg:pt-[120px]">
+  <Container class="flex flex-col gap-7">
+    <SectionHeader
+      id="work-title"
+      title="Projects"
+      link={{ label: "View all projects", href: "/work" }}
+      note={`${projects.length} selected · ${year}`}
+    />
+    <ProjectGrid projects={projects} />
+  </Container>
+</section>

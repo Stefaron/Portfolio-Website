@@ -1,0 +1,11 @@
+school: Universitas Kristen Duta Wacana
+degree: Bachelor of Computer Science (Informatics)
+location: Yogyakarta
+meta: Graduated Jan 2025 · completed in 3.4 years
+gpa: GPA 3.80 / 4.00
+order: 1
+certifications:
+  - name: TensorFlow Developer Certificate
+    year: 2024
+  - name: Bangkit Academy — Machine Learning
+    year: 2024

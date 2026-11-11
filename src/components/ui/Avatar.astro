@@ -1,0 +1,36 @@
+---
+import { Image } from "astro:assets";
+import avatar from "../../assets/images/avatar.png";
+
+interface Props {
+  status?: boolean;
+  alt?: string;
+  class?: string;
+}
+
+const { status = false, alt = "Portrait of Evan", class: className } = Astro.props;
+---
+
+<div class:list={["relative shrink-0", className]}>
+  <div class="h-full w-full overflow-hidden rounded-pill bg-accent">
+    <Image
+      src={avatar}
+      alt={alt}
+      width={296}
+      height={296}
+      widths={[96, 148, 296]}
+      sizes="(min-width: 1024px) 154px, 96px"
+      format="webp"
+      quality={85}
+      class="h-full w-full object-cover"
+    />
+  </div>
+  {status && (
+    <span
+      class="absolute bottom-0 right-0 grid h-[18px] w-[18px] place-items-center rounded-pill bg-canvas"
+      aria-hidden="true"
+    >
+      <span class="h-2.5 w-2.5 rounded-pill bg-success shadow-[0_0_6px_#66BB6A66]" />
+    </span>
+  )}
+</div>

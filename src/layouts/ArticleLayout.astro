@@ -1,0 +1,36 @@
+---
+import PageLayout from "./PageLayout.astro";
+import Container from "../components/layout/Container.astro";
+import Breadcrumbs from "../components/layout/Breadcrumbs.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  breadcrumbs: Array<{ label: string; href?: string }>;
+  schema?: Record<string, unknown> | Array<Record<string, unknown>>;
+}
+
+const { title, description, breadcrumbs, schema } = Astro.props;
+---
+
+<PageLayout title={title} description={description} schema={schema}>
+  <Container class="pt-6 md:pt-10">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <header class="mt-8 max-w-4xl">
+      <h1 class="text-headline font-bold text-ink">{title}</h1>
+      {description && (
+        <p class="mt-5 max-w-2xl text-lead text-ink-muted">{description}</p>
+      )}
+      <slot name="meta" />
+    </header>
+
+    <slot name="hero" />
+
+    <div class="prose prose-portfolio mt-12 max-w-3xl text-body">
+      <slot />
+    </div>
+
+    <slot name="after" />
+  </Container>
+</PageLayout>

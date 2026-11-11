@@ -1,11 +1,46 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import PageLayout from "../layouts/PageLayout.astro";
+import Hero from "../components/sections/home/Hero.astro";
+import FeaturedProjects from "../components/sections/home/FeaturedProjects.astro";
+import Services from "../components/sections/home/Services.astro";
+import ExperienceList from "../components/sections/experience/ExperienceList.astro";
+import LatestWriting from "../components/sections/home/LatestWriting.astro";
+import SkillsEducation from "../components/sections/skills/SkillsEducation.astro";
+import Faq from "../components/sections/faq/Faq.astro";
+import {
+  getEducation,
+  getExperience,
+  getFaq,
+  getFeaturedProjects,
+  getLanguages,
+  getServices,
+  getSkillGroups,
+  getWriting,
+} from "../lib/content";
+import { personSchema } from "../lib/seo";
+import { site } from "../config/site";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const [projects, services, experience, writing, groups, education, languages, faq] =
+  await Promise.all([
+    getFeaturedProjects(3),
+    getServices(),
+    getExperience(),
+    getWriting(),
+    getSkillGroups(),
+    getEducation(),
+    getLanguages(),
+    getFaq(4),
+  ]);
+
+const latestPaper = writing.find((entry) => entry.data.kind === "paper") ?? writing[0];
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<PageLayout title={site.title} description={site.description} schema={personSchema()}>
+  <Hero />
+  <FeaturedProjects projects={projects} />
+  <Services services={services} />
+  <ExperienceList experience={experience} />
+  {latestPaper && <LatestWriting entry={latestPaper} />}
+  <SkillsEducation groups={groups} education={education} languages={languages} />
+  <Faq items={faq} />
+</PageLayout>

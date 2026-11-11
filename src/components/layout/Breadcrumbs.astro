@@ -1,0 +1,32 @@
+---
+import Icon from "../ui/Icon.astro";
+
+interface Props {
+  items: Array<{ label: string; href?: string }>;
+}
+
+const { items } = Astro.props;
+---
+
+<nav aria-label="Breadcrumb">
+  <ol class="flex flex-wrap items-center gap-2 text-tiny font-semibold text-ink-subtle">
+    {items.map((item, index) => {
+      const isLast = index === items.length - 1;
+      return (
+        <li class="inline-flex items-center gap-2">
+          {item.href && !isLast ? (
+            <a
+              href={item.href}
+              class="underline-offset-4 transition hover:text-accent hover:underline"
+            >
+              {item.label}
+            </a>
+          ) : (
+            <span aria-current={isLast ? "page" : undefined}>{item.label}</span>
+          )}
+          {!isLast && <Icon name="chevron-right" size={12} />}
+        </li>
+      );
+    })}
+  </ol>
+</nav>

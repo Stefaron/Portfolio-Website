@@ -1,0 +1,33 @@
+---
+interface Props {
+  title: string;
+  id?: string;
+  link?: { label: string; href: string };
+  note?: string;
+  class?: string;
+}
+
+const { title, id, link, note, class: className = "" } = Astro.props;
+---
+
+<div class:list={["flex flex-wrap items-end justify-between gap-4", className]}>
+  <div class="flex flex-wrap items-center gap-3.5">
+    <h2 id={id} class="text-headline font-bold text-ink">
+      {title}
+    </h2>
+    {link && (
+      <>
+        <span class="text-headline font-light text-ink-subtle" aria-hidden="true">
+          /
+        </span>
+        <a
+          href={link.href}
+          class="text-small font-semibold text-ink underline-offset-4 transition hover:text-accent hover:underline"
+        >
+          {link.label}
+        </a>
+      </>
+    )}
+  </div>
+  {note && <p class="text-tiny font-semibold text-ink-subtle">{note}</p>}
+</div>

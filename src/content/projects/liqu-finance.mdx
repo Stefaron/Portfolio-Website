@@ -1,0 +1,49 @@
+---
+title: Liqu Finance
+summary: ERC-8004 agent on Unichain
+year: 2026
+role: Smart contracts & agent logic
+stack:
+  - Solidity
+  - Foundry
+  - Unichain
+  - Uniswap V4
+cover: ../../assets/images/projects/liqu-finance.jpg
+coverAlt: Liqu Finance agent interface on Unichain
+featured: true
+order: 3
+metrics:
+  - value: "3"
+    label: risk strategies
+  - value: Foundry
+    label: test suite
+links:
+  - label: GitHub profile
+    href: https://github.com/Stefaron
+---
+
+Liqu Finance is an ERC-8004 agent on Unichain. The agent manages Uniswap V4
+positions under three risk strategies and records its identity, reputation, and
+validation through on-chain registries.
+
+## The problem
+
+An autonomous liquidity agent needs two things that are usually bolted on: a way
+to prove who it is, and a way for others to inspect its track record. ERC-8004
+provides those registries, but the agent still has to use them consistently
+while making position decisions.
+
+## What I built
+
+- Identity, reputation, and validation registry integrations, with Foundry tests
+  around registration and updates.
+- Three risk strategies that translate a target profile into position ranges and
+  rebalancing behaviour.
+- Agent logic that reads pool state, selects a strategy, and executes the
+  corresponding Uniswap V4 position changes.
+
+## What I learned
+
+Strategy code is easy to write and hard to trust. Most of the work went into
+making each strategy's assumptions explicit and testable before letting the agent
+touch a position.

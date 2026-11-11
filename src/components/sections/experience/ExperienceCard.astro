@@ -1,0 +1,113 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  role: CollectionEntry<"experience">;
+  compact?: boolean;
+}
+
+const { role, compact = false } = Astro.props;
+const { data } = role;
+---
+
+<article
+  class:list={[
+    "flex flex-col",
+    compact
+      ? "gap-[18px] rounded-faq border border-line bg-surface p-[30px]"
+      : "gap-6 rounded-card bg-paper p-6 shadow-card md:p-9",
+  ]}
+>
+  <div
+    class:list={[
+      "flex flex-wrap items-center gap-3.5 lg:gap-4",
+      !compact && "md:items-start md:justify-between",
+    ]}
+  >
+    <div class="flex items-center gap-3.5 lg:gap-4">
+      <span
+        class:list={[
+          "grid shrink-0 place-items-center font-bold",
+          compact
+            ? "h-11 w-11 rounded-[14px] bg-canvas text-[16px] text-ink"
+            : "h-[52px] w-[52px] rounded-[16px] bg-ink text-[18px] text-inverse",
+        ]}
+        aria-hidden="true"
+      >
+        {data.logo}
+      </span>
+      <div class="flex flex-col gap-[3px]">
+        <h3
+          class:list={[
+            "font-bold tracking-[-0.025em] text-ink",
+            compact ? "text-[20px]" : "text-[22px]",
+          ]}
+        >
+          {data.role}
+        </h3>
+        <p class="text-meta font-semibold text-ink-muted">
+          {data.company}
+          {data.location && ` · ${data.location}`}
+        </p>
+      </div>
+    </div>
+
+    {!compact && (
+      <div class="flex flex-wrap items-center gap-2">
+        {data.current ? (
+          <span class="inline-flex items-center gap-2 rounded-pill bg-accent/10 px-3.5 py-1.5 text-tiny font-semibold text-accent">
+            <span class="h-1.5 w-1.5 rounded-pill bg-accent" aria-hidden="true" />
+            {data.period}
+          </span>
+        ) : (
+          <p class="text-tiny font-semibold text-ink-subtle">
+            {data.meta ?? data.period}
+          </p>
+        )}
+      </div>
+    )}
+  </div>
+
+  {compact && data.meta && (
+    <p class="-mt-1 text-tiny font-semibold text-ink-subtle">{data.meta}</p>
+  )}
+
+  {data.bullets.length > 0 && (
+    <ul class="flex flex-col gap-2">
+      {data.bullets.map((bullet) => (
+        <li class="flex items-start gap-3">
+          <span class="flex h-[22px] w-4 shrink-0 items-center justify-center">
+            <span class="h-[5px] w-[5px] rounded-full bg-accent" />
+          </span>
+          <p class="flex-1 text-[14px] leading-[23px] text-ink-muted">{bullet}</p>
+        </li>
+      ))}
+    </ul>
+  )}
+
+  {!compact && data.metrics.length > 0 && (
+    <>
+      <div class="h-px w-full bg-line" />
+      <dl class="grid grid-cols-2 gap-4 md:grid-cols-4">
+        {data.metrics.map((metric) => (
+          <div class="flex flex-col gap-1">
+            <dt class="text-[22px] font-bold leading-none tracking-[-0.4px] text-ink">
+              {metric.value}
+            </dt>
+            <dd class="text-tiny text-ink-subtle">{metric.label}</dd>
+          </div>
+        ))}
+      </dl>
+    </>
+  )}
+
+  {compact && data.tags.length > 0 && (
+    <ul class="flex flex-wrap gap-1.5">
+      {data.tags.map((tag) => (
+        <li class="rounded-pill bg-canvas px-2.5 py-1 text-micro font-semibold text-ink-muted">
+          {tag}
+        </li>
+      ))}
+    </ul>
+  )}
+</article>

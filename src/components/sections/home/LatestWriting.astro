@@ -1,0 +1,40 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Container from "../../layout/Container.astro";
+import PublicationCard from "../writing/PublicationCard.astro";
+import Icon from "../../ui/Icon.astro";
+
+interface Props {
+  entry: CollectionEntry<"writing">;
+}
+
+const { entry } = Astro.props;
+---
+
+<section aria-labelledby="publication-title" class="pt-16 md:pt-20 lg:pt-[120px]">
+  <Container class="flex flex-col gap-12 lg:flex-row lg:gap-[72px]">
+    <div class="flex flex-col gap-5 lg:w-[400px] lg:shrink-0">
+      <p class="text-tiny font-bold uppercase tracking-[1.6px] text-accent">
+        Publication
+      </p>
+      <h2 id="publication-title" class="text-headline font-bold text-ink">
+        Published research.
+      </h2>
+      <p class="text-small leading-6 text-ink-muted">
+        Fine-tuning a ResNet-50 to classify four Keraton batik motif classes — 97.8% test
+        accuracy, published in AITI volume 23.
+      </p>
+      <a
+        href="/writing"
+        class="inline-flex w-fit items-center gap-1.5 text-tiny font-bold text-accent underline-offset-4 hover:underline"
+      >
+        All writing
+        <Icon name="arrow-right" size={13} />
+      </a>
+    </div>
+
+    <div class="flex-1">
+      <PublicationCard entry={entry} />
+    </div>
+  </Container>
+</section>

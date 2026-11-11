@@ -1,0 +1,9 @@
+title: Applied machine learning
+description: Fine-tuning vision models and shipping them as usable tools, from dataset curation and evaluation to a published ResNet-50 benchmark for Keraton batik motifs.
+tags:
+  - TensorFlow
+  - Keras
+  - Python
+  - ResNet-50
+  - Computer vision
+order: 3

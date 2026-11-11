@@ -1,0 +1,72 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Icon from "../../ui/Icon.astro";
+
+interface Props {
+  entry: CollectionEntry<"writing">;
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+const href = `/writing/${entry.id}`;
+const date = data.publishedAt.toLocaleDateString("en-US", {
+  month: "short",
+  year: "numeric",
+});
+---
+
+<article class="flex flex-col gap-[22px] rounded-card bg-paper p-6 shadow-card md:p-10">
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <p class="inline-flex items-center gap-2 text-tiny font-semibold text-ink-muted">
+      <Icon name="book-open" size={15} />
+      {data.journal ?? `${date} · Writing`}
+    </p>
+    {data.kind === "paper" && (
+      <span class="rounded-pill bg-accent/10 px-3.5 py-1.5 text-tiny font-semibold text-accent">
+        Peer reviewed
+      </span>
+    )}
+  </div>
+
+  <h3 class="text-[26px] font-bold leading-[1.27] tracking-[-0.027em] text-ink">
+    <a
+      href={href}
+      class="underline-offset-4 transition hover:text-accent hover:underline"
+    >
+      {data.title}
+    </a>
+  </h3>
+
+  {data.authors && <p class="text-meta text-ink-subtle">{data.authors}</p>}
+
+  <p class="text-small leading-6 text-ink-muted">{data.description}</p>
+
+  <div class="h-px w-full bg-line" />
+
+  <dl class="grid grid-cols-2 gap-4 md:grid-cols-4">
+    {data.metrics.map((metric) => (
+      <div class="flex flex-col gap-1">
+        <dt class="text-[22px] font-bold leading-none tracking-[-0.4px] text-ink">
+          {metric.value}
+        </dt>
+        <dd class="text-tiny text-ink-subtle">{metric.label}</dd>
+      </div>
+    ))}
+  </dl>
+
+  <div class="flex flex-wrap items-center gap-4 pt-1">
+    <a
+      href={href}
+      class="inline-flex items-center gap-1.5 text-tiny font-bold text-accent underline-offset-4 hover:underline"
+    >
+      Read abstract
+      <Icon name="arrow-right" size={13} />
+    </a>
+    {data.doi && (
+      <span class="inline-flex items-center gap-1.5 text-tiny font-semibold text-ink-subtle">
+        <Icon name="external-link" size={13} />
+        doi:{data.doi}
+      </span>
+    )}
+  </div>
+</article>
