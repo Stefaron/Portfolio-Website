@@ -29,17 +29,19 @@ const {
 } = Astro.props;
 
 const base =
-  "inline-flex items-center justify-center gap-2.5 rounded-pill font-semibold transition duration-200";
+  "inline-flex items-center justify-center gap-2.5 rounded-pill font-semibold leading-none transition duration-200";
 
 const sizes = {
-  md: "px-8 py-[17px] text-body",
-  sm: "px-[26px] py-[14px] text-small",
+  md: "px-7 py-[14px] text-body",
+  sm: "px-[22px] py-[11px] text-small",
 };
 
 const variants = {
-  primary: "bg-ink text-inverse shadow-action hover:bg-ink-muted",
+  primary:
+    "bg-[linear-gradient(180deg,#2E323C_0%,#1B202A_100%)] text-inverse shadow-action hover:brightness-110",
   secondary: "border border-ink-subtle text-ink hover:border-ink hover:bg-paper",
-  light: "bg-surface text-ink hover:bg-paper",
+  light:
+    "bg-[linear-gradient(180deg,#FFFFFF_0%,#D7D9DE_100%)] text-ink shadow-cta hover:brightness-[1.03]",
   ghost: "border border-white/20 text-inverse hover:border-white/40 hover:bg-white/5",
   nav: "bg-ink text-inverse shadow-cta hover:bg-ink-muted",
 };

@@ -6,40 +6,62 @@ import { site } from "../../config/site";
 
 <section
   aria-labelledby="cta-title"
-  class="rounded-panel bg-ink px-5 py-14 text-center md:px-20 md:py-20 md:pb-14"
+  class="relative overflow-hidden rounded-panel bg-[linear-gradient(170deg,#2C303A_0%,#1B202A_62%,#161A21_100%)] px-6 py-12 text-center shadow-float md:px-14 md:py-14"
 >
-  <p class="text-tiny font-bold uppercase tracking-[2px] text-ink-soft">
-    Open to Android roles
-  </p>
-  <h2
-    id="cta-title"
-    class="mx-auto mt-8 max-w-[900px] text-balance text-[clamp(2.25rem,4.58vw,4.125rem)] font-bold leading-[1.06] tracking-[-0.036em] text-inverse"
-  >
-    Let's build something that runs in every environment.
-  </h2>
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0 bg-[radial-gradient(75%_65%_at_50%_12%,rgba(255,255,255,0.08),transparent_70%)]"
+  ></div>
 
-  <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
-    <Button href={`mailto:${site.email}`} variant="light" icon="arrow-up-right">
-      {site.email}
-    </Button>
-    <Button href={`tel:${site.phoneHref}`} variant="ghost">
-      {site.phone}
-    </Button>
+  <div class="relative flex flex-col items-center gap-6">
+    <p class="text-tiny font-bold uppercase tracking-[2px] text-ink-soft">
+      Open to Android roles
+    </p>
+    <h2
+      id="cta-title"
+      class="max-w-[760px] text-balance text-[clamp(1.75rem,2.92vw,2.625rem)] font-bold leading-[1.1] tracking-[-0.028em] text-inverse"
+    >
+      Let's build something that runs in every environment.
+    </h2>
+
+    <div class="flex flex-wrap items-center justify-center gap-3">
+      <Button href={`mailto:${site.email}`} variant="light" icon="arrow-up-right">
+        {site.email}
+      </Button>
+      <Button href={`tel:${site.phoneHref}`} variant="ghost">
+        {site.phone}
+      </Button>
+    </div>
+
+    <ul class="flex items-center justify-center gap-3">
+      {site.socials.map((social) => (
+        <li>
+          <a
+            href={social.href}
+            aria-label={social.label}
+            target={social.href.startsWith("http") ? "_blank" : undefined}
+            rel={social.href.startsWith("http") ? "noreferrer" : undefined}
+            class="grid h-[52px] w-[52px] place-items-center rounded-pill bg-white/10 text-inverse transition hover:bg-white/20"
+          >
+            <Icon name={social.icon} size={20} />
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <nav aria-label="Footer" class="pt-1">
+      <ul class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+        {site.footerLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class="text-[16px] font-semibold text-inverse/70 underline-offset-4 transition hover:text-inverse hover:underline"
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
   </div>
-
-  <ul class="mt-4 flex flex-wrap items-center justify-center gap-3">
-    {site.socials.map((social) => (
-      <li>
-        <a
-          href={social.href}
-          target={social.href.startsWith("http") ? "_blank" : undefined}
-          rel={social.href.startsWith("http") ? "noreferrer" : undefined}
-          class="inline-flex items-center gap-2 rounded-pill bg-white/10 px-[18px] py-2.5 text-tiny font-semibold text-inverse transition hover:bg-white/15"
-        >
-          <Icon name={social.icon} size={16} />
-          {social.label}
-        </a>
-      </li>
-    ))}
-  </ul>
 </section>

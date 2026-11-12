@@ -1,9 +1,9 @@
 ---
+import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import Container from "../../layout/Container.astro";
 import Button from "../../ui/Button.astro";
 import Icon from "../../ui/Icon.astro";
-import Tag from "../../ui/Tag.astro";
 
 interface Props {
   services: Array<CollectionEntry<"services">>;
@@ -12,46 +12,64 @@ interface Props {
 const { services } = Astro.props;
 ---
 
-<section aria-labelledby="services-title" class="pt-16 md:pt-20 lg:pt-[120px]">
-  <Container class="flex flex-col gap-12 lg:flex-row lg:gap-[72px]">
-    <div class="flex flex-col gap-5 lg:w-[400px] lg:shrink-0">
+<section aria-labelledby="services-title" class="pt-16 md:pt-24 lg:pt-[160px]">
+  <Container class="flex flex-col gap-10 lg:grid lg:grid-cols-[323px_minmax(0,1fr)] lg:items-start lg:gap-8">
+    <div class="flex flex-col gap-5">
       <p class="text-tiny font-bold uppercase tracking-[1.6px] text-accent">What I do</p>
       <h2 id="services-title" class="text-headline font-bold text-ink">
         Three things I do well.
       </h2>
-      <p class="text-small leading-6 text-ink-muted">
+      <p class="text-lead text-ink-muted">
         Production Android first, with smart contracts and applied machine learning close
         behind. I like shipping things that hold up under real store traffic.
       </p>
-      <div class="pt-2">
-        <Button href="/contact" size="sm" icon="arrow-up-right">
+      <div class="pt-1">
+        <Button href="/contact" icon="arrow-up-right">
           Work with me
         </Button>
       </div>
     </div>
 
-    <div class="flex flex-1 flex-col gap-3.5">
+    <div class="flex flex-col gap-6">
       {services.map((service, index) => (
-        <details
-          class="group rounded-faq bg-paper p-[26px] shadow-soft"
-          open={index === 0}
-        >
-          <summary class="flex cursor-pointer list-none items-center gap-[18px] [&::-webkit-details-marker]:hidden">
-            <span class="grid h-[38px] w-[38px] shrink-0 place-items-center rounded-pill bg-canvas text-tiny font-bold text-ink-muted">
-              {String(index + 1).padStart(2, "0")}
-            </span>
-            <h3 class="flex-1 text-title font-bold text-ink">{service.data.title}</h3>
-            <span class="grid h-[38px] w-[38px] shrink-0 place-items-center rounded-pill bg-ink text-inverse">
-              <Icon name="plus" size={17} class="toggle-icon" />
+        <details class="group rounded-faq bg-paper p-6 shadow-soft" open={index === 0}>
+          <summary class="flex cursor-pointer list-none flex-col [&::-webkit-details-marker]:hidden">
+            {service.data.cover && (
+              <span class="mb-5 hidden overflow-hidden rounded-2xl group-open:block">
+                <Image
+                  src={service.data.cover}
+                  alt={service.data.coverAlt}
+                  widths={[597, 1194]}
+                  sizes="(min-width: 1024px) 597px, 100vw"
+                  format="webp"
+                  quality={80}
+                  loading="lazy"
+                  class="h-[170px] w-full object-cover"
+                />
+              </span>
+            )}
+
+            <span class="flex min-h-[44px] items-center gap-4">
+              <span class="grid h-8 w-8 shrink-0 place-items-center rounded-pill bg-canvas text-tiny font-bold text-ink-muted">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <h3 class="flex-1 text-[24px] font-bold leading-[1.15] tracking-[-0.025em] text-ink">
+                {service.data.title}
+              </h3>
+              <span class="grid h-11 w-11 shrink-0 place-items-center rounded-pill bg-ink text-inverse">
+                <Icon name="plus" size={17} class="toggle-icon" />
+              </span>
             </span>
           </summary>
 
-          <div class="mt-[18px] flex flex-col gap-5 pl-0 sm:pl-14">
-            <p class="text-small leading-6 text-ink-muted">{service.data.description}</p>
+          <div class="mt-4 flex flex-col gap-5">
+            <p class="text-[17px] leading-[1.6] text-ink-muted">
+              {service.data.description}
+            </p>
             <ul class="flex flex-wrap gap-1.5">
               {service.data.tags.map((tag) => (
-                <li>
-                  <Tag>{tag}</Tag>
+                <li class="rounded-pill bg-ink-subtle px-3.5 py-1.5 text-tiny font-semibold text-white">
+                  {tag}
                 </li>
               ))}
             </ul>

@@ -4,28 +4,28 @@ import Container from "../../layout/Container.astro";
 import Avatar from "../../ui/Avatar.astro";
 import Pill from "../../ui/Pill.astro";
 import Button from "../../ui/Button.astro";
-import android from "../../../assets/images/media/android.jpg";
-import yogyakarta from "../../../assets/images/media/yogyakarta.jpg";
+import codeScreen from "../../../assets/images/media/code-screen.jpg";
+import indonesiaPhoto from "../../../assets/images/media/indonesia.jpg";
 import { site } from "../../../config/site";
 ---
 
-<section class="pb-8 pt-8 md:pb-12 md:pt-12 lg:pb-12 lg:pt-16">
-  <Container class="flex flex-col gap-10">
+<section class="pb-10 pt-10 md:pb-16 md:pt-20 lg:pb-[120px] lg:pt-[160px]">
+  <Container class="flex flex-col gap-10 lg:gap-12">
     <h1 class="text-display font-bold text-ink">
-      <span class="flex flex-wrap items-center gap-x-4 gap-y-3">
+      <span class="flex flex-wrap items-center gap-x-3.5 gap-y-2">
         <span>Hi, I'm</span>
-        <Avatar class="h-14 w-14 border-2 border-paper shadow-hero lg:h-[77px] lg:w-[77px]" />
+        <Avatar class="h-[46px] w-[56px] rounded-pill border-2 border-paper shadow-hero sm:h-[58px] sm:w-[70px]" />
         <Pill>Evan</Pill>
       </span>
 
-      <span class="mt-1 flex flex-wrap items-center gap-x-4 gap-y-3">
+      <span class="flex flex-wrap items-center gap-x-3.5 gap-y-2">
         <span>an</span>
-        <span class="inline-flex h-12 w-[96px] shrink-0 overflow-hidden rounded-pill border-2 border-paper shadow-hero lg:h-[77px] lg:w-[137px]">
+        <span class="inline-flex h-[46px] w-[56px] shrink-0 overflow-hidden rounded-pill border-2 border-paper shadow-hero sm:h-[58px] sm:w-[70px]">
           <Image
-            src={android}
-            alt="Android mascot"
-            width={274}
-            height={154}
+            src={codeScreen}
+            alt="Code on a developer's screen"
+            width={140}
+            height={116}
             format="webp"
             quality={82}
             class="h-full w-full object-cover"
@@ -33,12 +33,12 @@ import { site } from "../../../config/site";
         </span>
         <Pill>Software engineer</Pill>
         <span>from</span>
-        <span class="inline-flex h-12 w-[96px] shrink-0 overflow-hidden rounded-pill border-2 border-paper shadow-hero lg:h-[77px] lg:w-[137px]">
+        <span class="inline-flex h-[46px] w-[56px] shrink-0 overflow-hidden rounded-pill border-2 border-paper shadow-hero sm:h-[58px] sm:w-[70px]">
           <Image
-            src={yogyakarta}
-            alt="Yogyakarta, Indonesia"
-            width={274}
-            height={154}
+            src={indonesiaPhoto}
+            alt="Prambanan temple in Yogyakarta, Indonesia"
+            width={140}
+            height={116}
             format="webp"
             quality={82}
             class="h-full w-full object-cover"
@@ -47,10 +47,7 @@ import { site } from "../../../config/site";
         <Pill>Indonesia</Pill>
       </span>
 
-      <span class="mt-1 block">
-        Blending engineering rigor with
-        <br class="hidden sm:block" /> product instinct.
-      </span>
+      <span class="mt-1 block">Engineering with vision.</span>
     </h1>
 
     <div class="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
@@ -69,7 +66,7 @@ import { site } from "../../../config/site";
       <dl class="flex flex-col gap-3.5 lg:items-end">
         {site.hero.stats.map((stat) => (
           <div class="flex flex-col gap-0.5 lg:items-end">
-            <dt class="text-[22px] font-bold leading-none tracking-[-0.4px] text-ink">
+            <dt class="text-[20px] font-bold leading-none tracking-[-0.4px] text-ink">
               {stat.value}
             </dt>
             <dd class="text-tiny text-ink-subtle">{stat.label}</dd>

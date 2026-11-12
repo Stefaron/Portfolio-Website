@@ -4,28 +4,12 @@ import CtaBand from "./CtaBand.astro";
 import { site } from "../../config/site";
 ---
 
-<footer class="pt-16 md:pt-20 lg:pt-[120px]">
-  <Container class="flex flex-col gap-8 pb-12 lg:gap-12 lg:pb-12">
+<footer class="pt-16 md:pt-24 lg:pt-[160px]">
+  <Container class="flex flex-col gap-6 pb-10">
     <CtaBand />
 
-    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-      <nav aria-label="Footer">
-        <ul class="flex flex-wrap items-center gap-x-6 gap-y-2">
-          {site.footerLinks.map((link) => (
-            <li>
-              <a
-                href={link.href}
-                class="text-meta font-semibold text-ink-muted underline-offset-4 transition hover:text-accent hover:underline"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-      <p class="text-tiny font-semibold text-ink-subtle">
-        © {new Date().getFullYear()} {site.name} · {site.location}
-      </p>
-    </div>
+    <p class="text-center text-tiny font-semibold text-ink-subtle">
+      © {new Date().getFullYear()} {site.name} · {site.location}
+    </p>
   </Container>
 </footer>

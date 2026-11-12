@@ -7,10 +7,11 @@ interface Props {
 }
 
 const { projects } = Astro.props;
+const hasWideLast = projects.length % 2 === 1;
 ---
 
-<div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-  {projects.map((project) => (
-    <ProjectCard project={project} />
+<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+  {projects.map((project, index) => (
+    <ProjectCard project={project} wide={hasWideLast && index === projects.length - 1} />
   ))}
 </div>

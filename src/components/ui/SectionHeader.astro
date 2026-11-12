@@ -17,12 +17,12 @@ const { title, id, link, note, class: className = "" } = Astro.props;
     </h2>
     {link && (
       <>
-        <span class="text-headline font-light text-ink-subtle" aria-hidden="true">
+        <span class="text-headline font-bold text-ink" aria-hidden="true">
           /
         </span>
         <a
           href={link.href}
-          class="text-small font-semibold text-ink underline-offset-4 transition hover:text-accent hover:underline"
+          class="text-[17px] font-semibold text-ink underline-offset-4 transition hover:text-accent hover:underline lg:text-[18px]"
         >
           {link.label}
         </a>

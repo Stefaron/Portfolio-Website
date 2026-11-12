@@ -17,9 +17,9 @@ const earlier = experience.filter((role) => !role.data.featured);
 <section
   id="experience"
   aria-labelledby="experience-title"
-  class="pt-16 md:pt-20 lg:pt-[120px]"
+  class="pt-16 md:pt-24 lg:pt-[160px]"
 >
-  <Container class="flex flex-col gap-7">
+  <Container class="flex flex-col gap-8">
     <SectionHeader
       id="experience-title"
       title="Experience"
@@ -33,7 +33,7 @@ const earlier = experience.filter((role) => !role.data.featured);
       ))}
 
       {earlier.length > 0 && (
-        <div class="grid gap-4 md:grid-cols-2">
+        <div class="grid gap-5 md:grid-cols-2">
           {earlier.map((role) => (
             <ExperienceCard role={role} compact />
           ))}

@@ -11,16 +11,16 @@ interface Props {
 const { entry } = Astro.props;
 ---
 
-<section aria-labelledby="publication-title" class="pt-16 md:pt-20 lg:pt-[120px]">
-  <Container class="flex flex-col gap-12 lg:flex-row lg:gap-[72px]">
-    <div class="flex flex-col gap-5 lg:w-[400px] lg:shrink-0">
+<section aria-labelledby="publication-title" class="pt-16 md:pt-24 lg:pt-[160px]">
+  <Container class="flex flex-col gap-10 lg:grid lg:grid-cols-[323px_minmax(0,1fr)] lg:items-start lg:gap-8">
+    <div class="flex flex-col gap-5">
       <p class="text-tiny font-bold uppercase tracking-[1.6px] text-accent">
         Publication
       </p>
       <h2 id="publication-title" class="text-headline font-bold text-ink">
         Published research.
       </h2>
-      <p class="text-small leading-6 text-ink-muted">
+      <p class="text-lead text-ink-muted">
         Fine-tuning a ResNet-50 to classify four Keraton batik motif classes — 97.8% test
         accuracy, published in AITI volume 23.
       </p>

@@ -75,12 +75,15 @@ const experience = defineCollection({
 
 const services = defineCollection({
   loader: glob({ pattern: "**/*.{yaml,yml}", base: "./src/content/services" }),
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    tags: z.array(z.string()).default([]),
-    order: z.number().default(0),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      cover: image().optional(),
+      coverAlt: z.string().default("Service cover"),
+      tags: z.array(z.string()).default([]),
+      order: z.number().default(0),
+    }),
 });
 
 const skills = defineCollection({

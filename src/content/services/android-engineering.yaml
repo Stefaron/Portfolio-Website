@@ -1,4 +1,6 @@
 title: Android engineering
+cover: ../../assets/images/services/android-engineering.jpg
+coverAlt: Hand holding a phone showing a mobile dashboard app
 description: Kotlin and Jetpack Compose in production, a POS for Indomaret store tablets, plus three field-operations apps used across the chain. Clean Architecture, MVVM, Hilt, Room and Flows.
 tags:
   - Kotlin

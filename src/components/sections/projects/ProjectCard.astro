@@ -5,59 +5,54 @@ import Icon from "../../ui/Icon.astro";
 
 interface Props {
   project: CollectionEntry<"projects">;
+  wide?: boolean;
 }
 
-const { project } = Astro.props;
+const { project, wide = false } = Astro.props;
 const href = `/work/${project.id}`;
-const highlight = project.data.metrics[0];
 ---
 
-<article class="group flex h-full flex-col rounded-card bg-surface p-2.5 transition duration-300 hover:-translate-y-1 hover:shadow-float">
-  <div class="flex items-center justify-between gap-4 rounded-tile px-5 py-4">
-    <div class="min-w-0">
-      <h3 class="text-[24px] font-bold leading-[1.08] tracking-[-0.025em] text-ink">
-        <a href={href} class="transition group-hover:text-accent">
-          {project.data.title}
-        </a>
-      </h3>
-      <p class="text-tiny font-semibold text-ink-subtle">{project.data.year}</p>
-    </div>
+<article
+  class:list={[
+    "group relative flex flex-col rounded-card bg-paper p-1 ring-1 ring-line transition duration-300 hover:-translate-y-1 hover:shadow-float",
+    wide && "md:col-span-2",
+  ]}
+>
+  <div class="flex h-[76px] items-center justify-between gap-4 px-5">
+    <h3 class="min-w-0 text-[24px] font-bold leading-[1.1] tracking-[-0.025em] text-ink">
+      <a href={href} class="transition group-hover:text-accent">
+        {project.data.title}
+      </a>
+    </h3>
     <a
       href={href}
       aria-label={`Open ${project.data.title} case study`}
-      class="grid h-[38px] w-[38px] shrink-0 place-items-center rounded-pill bg-ink text-inverse transition group-hover:bg-accent"
+      class="grid h-[38px] w-[38px] shrink-0 place-items-center rounded-pill bg-ink text-inverse shadow-cta transition group-hover:bg-accent"
     >
       <Icon name="arrow-up-right" size={17} />
     </a>
   </div>
 
-  <a href={href} tabindex="-1" aria-hidden="true" class="overflow-hidden rounded-tile">
+  <a
+    href={href}
+    tabindex="-1"
+    aria-hidden="true"
+    class="block overflow-hidden rounded-tile"
+  >
     <Image
       src={project.data.cover}
       alt={project.data.coverAlt}
-      widths={[420, 640, 900]}
-      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+      widths={wide ? [640, 1000, 1400] : [420, 640, 976]}
+      sizes={
+        wide ? "(min-width: 768px) 1000px, 100vw" : "(min-width: 768px) 488px, 100vw"
+      }
       format="webp"
       quality={82}
       loading="lazy"
-      class="h-[260px] w-full object-cover transition duration-500 group-hover:scale-[1.02] lg:h-[330px]"
+      class:list={[
+        "w-full object-cover transition duration-500 group-hover:scale-[1.02]",
+        wide ? "h-[300px] lg:h-[376px]" : "h-[360px] md:h-[420px] lg:h-[526px]",
+      ]}
     />
   </a>
-
-  <div class="flex flex-1 flex-col gap-2 px-2.5 pb-3 pt-[18px]">
-    <p class="text-meta font-semibold leading-[1.45] text-ink">{project.data.summary}</p>
-    {highlight && (
-      <p class="text-tiny leading-[1.5] text-ink-subtle">
-        <span class="font-semibold text-ink-muted">{highlight.value}</span>{" "}
-        {highlight.label}
-      </p>
-    )}
-    <a
-      href={href}
-      class="mt-auto inline-flex items-center gap-1.5 pt-1 text-tiny font-bold text-accent underline-offset-4 hover:underline"
-    >
-      Case study
-      <Icon name="arrow-right" size={13} />
-    </a>
-  </div>
 </article>

@@ -1,6 +1,5 @@
 ---
 import Container from "./Container.astro";
-import Avatar from "../ui/Avatar.astro";
 import Icon from "../ui/Icon.astro";
 import { site } from "../../config/site";
 
@@ -9,18 +8,13 @@ const isActive = (href: string) =>
   href === "/" ? path === "/" : path === href || path.startsWith(`${href}/`);
 ---
 
-<header class="sticky top-0 z-50 bg-canvas/80 backdrop-blur-md">
-  <Container class="flex items-center justify-center gap-2 py-4 sm:gap-3 lg:py-7">
-    <a href="/" aria-label="Evan — home" class="shrink-0">
-      <Avatar
-        status
-        class="h-12 w-12 transition hover:scale-[1.03] sm:h-14 sm:w-14 lg:h-[74px] lg:w-[74px]"
-      />
-    </a>
+<header class="site-header sticky top-0 z-50" data-site-header>
+  <div class="site-header__glass" aria-hidden="true"></div>
 
-    <div class="flex items-center justify-between gap-2 rounded-pill bg-paper py-2 pl-3 pr-1.5 shadow-nav sm:gap-3 sm:pl-4 sm:pr-2 lg:gap-10 lg:py-[13px] lg:pl-[34px]">
+  <Container class="relative flex items-center justify-center py-4 lg:py-5">
+    <div class="nav-pill flex items-center justify-between gap-3 rounded-pill py-1.5 pl-[18px] pr-2 lg:gap-3">
       <nav aria-label="Primary">
-        <ul class="flex items-center gap-2 sm:gap-5 lg:gap-10">
+        <ul class="flex items-center gap-2 lg:gap-3">
           {site.nav.map((item) => (
             <li>
               <a
@@ -28,14 +22,14 @@ const isActive = (href: string) =>
                 aria-label={item.label}
                 aria-current={isActive(item.href) ? "page" : undefined}
                 class:list={[
-                  "group relative grid h-8 w-8 place-items-center rounded-pill transition sm:h-9 sm:w-9",
+                  "group relative grid h-8 w-8 place-items-center rounded-pill transition",
                   isActive(item.href) ? "text-ink" : "text-ink-muted hover:text-ink",
                 ]}
               >
-                <Icon name={item.icon} size={24} strokeWidth={1.6} />
+                <Icon name={item.icon} size={18} strokeWidth={1.6} />
                 <span
                   class:list={[
-                    "absolute -bottom-0.5 h-1 w-1 rounded-pill bg-accent transition",
+                    "absolute bottom-0 h-1 w-1 rounded-pill bg-accent transition",
                     isActive(item.href)
                       ? "opacity-100"
                       : "opacity-0 group-hover:opacity-40",
@@ -50,13 +44,50 @@ const isActive = (href: string) =>
 
       <a
         href="/contact"
-        class="inline-flex items-center gap-2 rounded-pill bg-ink py-[7px] pl-1.5 pr-2 text-inverse shadow-cta transition hover:bg-ink-muted sm:gap-2.5 sm:pl-[7px] sm:pr-3 lg:gap-3 lg:pr-[22px]"
+        class="inline-flex items-center gap-2 rounded-pill bg-ink py-1 pl-1 pr-2 text-inverse shadow-cta transition hover:bg-ink-muted lg:pr-2.5"
       >
-        <span class="grid h-8 w-8 place-items-center rounded-pill border-2 border-accent bg-ink-muted text-[14px] font-bold text-inverse sm:h-9 sm:w-9 lg:h-10 lg:w-10 lg:text-[15px]">
+        <span class="grid h-7 w-7 place-items-center rounded-pill border-2 border-accent bg-ink-muted text-[12px] font-bold text-inverse">
           S
         </span>
-        <span class="hidden text-body font-semibold lg:inline">Let's talk</span>
+        <span class="hidden text-[13px] font-semibold lg:inline">Let's talk</span>
       </a>
     </div>
   </Container>
 </header>
+
+<script>
+  import "../../scripts/liquid-glass.js";
+
+  type LiquidGlassOptions = {
+    scale?: number;
+    chroma?: number;
+    blur?: number;
+    saturate?: number;
+    fallbackBlur?: number;
+  };
+  type LiquidGlassFn = (
+    el: Element,
+    options?: LiquidGlassOptions,
+  ) => { supported: boolean };
+
+  const header = document.querySelector<HTMLElement>("[data-site-header]");
+  if (header) {
+    const setScrolled = () => {
+      header.dataset.scrolled = window.scrollY > 8 ? "true" : "false";
+    };
+    setScrolled();
+    window.addEventListener("scroll", setScrolled, { passive: true });
+  }
+
+  const pill = document.querySelector(".nav-pill");
+  const liquidGlass = (window as unknown as { liquidGlass?: LiquidGlassFn }).liquidGlass;
+  if (pill && liquidGlass) {
+    liquidGlass(pill, {
+      scale: -80,
+      chroma: 5,
+      blur: 14,
+      saturate: 1.6,
+      fallbackBlur: 14,
+    });
+  }
+</script>
